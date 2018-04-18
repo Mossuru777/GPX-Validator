@@ -220,7 +220,7 @@ function outputGPX(props, tag, level) {
     }
 
     var gpx_str = level === 0 ? "<?xml version='1.0' encoding='utf-8'?>\n" : "";
-    var spaces = Array(level * 4 + 1).join(" ");
+    var spaces = Array(level * 2 + 1).join(" ");
 
     var start_tag = "<" + tag;
     if (props instanceof Object && !(props instanceof Array) && props.hasOwnProperty("attributes")) {
