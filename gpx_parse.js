@@ -255,6 +255,28 @@ function outputGPX(props, tag, level) {
     return gpx_str;
 }
 
+function outputGarminGPX(orig_props) {
+    var props = {};
+    Object.getOwnPropertyNames(orig_props).forEach(function (key) {
+        if (key === "attributes") {
+            if (!props["attributes"])
+                props.attributes = {
+                    creator: "GPX-Validator - https://mossuru777.github.io/GPX-Validator/",
+                    xmlns: "http://www.topografix.com/GPX/1/1",
+                    "xmlns:gpxx": "http://www.garmin.com/xmlschemas/GpxExtensions/v3",
+                    "xmlns:gpxtpx": "http://www.garmin.com/xmlschemas/TrackPointExtension/v1"
+                };
+            Object.getOwnPropertyNames(orig_props.attributes).forEach(function (attr_key) {
+                if (!/(creator|xmlns(:.*)?|xsi(:.*)?)/.test(attr_key))
+                    props.attributes[attr_key] = orig_props.attributes[attr_key];
+            });
+        } else {
+            props[key] = orig_props[key];
+        }
+    });
+    return outputGPX(props);
+}
+
 var parseDateString = function (s) {
     var bits = s.split(/[-T:+Z]/g);
     var d = new Date(bits[0], bits[1] - 1, bits[2]);

@@ -4,6 +4,7 @@ $(function () {
     var polyline_colors = ["#ff1a1a", "#ff8c1a", "#1aff1a", "#1affff", "#1a1aff", "#8c1aff", "#ff1ac6"];
 
     var dl_gpx_button = $("#dl_valid_gpx");
+    var dl_garmin_gpx_button = $("#dl_garmin_gpx");
     var reset_button = $("#reset");
 
     var attribute_area = $("#attribute_area");
@@ -20,6 +21,7 @@ $(function () {
 
     var resetState = function () {
         dl_gpx_button.off().prop("disabled", true);
+        dl_garmin_gpx_button.prop("disabled", true);
         reset_button.prop("disabled", true);
 
         attribute_area.hide();
@@ -80,7 +82,9 @@ $(function () {
 
             // set dl
             var valid_gpx = outputGPX(valid_gpx_object);
+            var garmin_gpx = outputGarminGPX(valid_gpx_object);
             dl_gpx_button.prop("disabled", false).click(createDLButtonClickEventFunction(valid_gpx, file_basename + "_validated.gpx"));
+            dl_garmin_gpx_button.prop("disabled", false).click(createDLButtonClickEventFunction(garmin_gpx, file_basename + "_garmin.gpx"));
             reset_button.prop("disabled", false);
         }
     };
