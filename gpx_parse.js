@@ -223,9 +223,9 @@ function outputGPX(props, tag, level) {
     var spaces = Array(level * 4 + 1).join(" ");
 
     var start_tag = "<" + tag;
-    if (props instanceof Object && !props instanceof Array && props.hasOwnProperty("attributes")) {
+    if (props instanceof Object && !(props instanceof Array) && props.hasOwnProperty("attributes")) {
         Object.getOwnPropertyNames(props.attributes).forEach(function (key) {
-            start_tag += " " + key + "=" + props.attributes[key];
+            start_tag += " " + key + "='" + props.attributes[key] + "'";
         });
     }
     start_tag += ">";
