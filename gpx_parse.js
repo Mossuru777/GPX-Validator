@@ -219,13 +219,13 @@ function outputGPX(props, tag, level) {
         tag = "gpx";
     }
 
-    var gpx_str = level === 0 ? "<?xml version='1.0' encoding='utf-8'?>\n" : "";
+    var gpx_str = level === 0 ? "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" : "";
     var spaces = Array(level * 2 + 1).join(" ");
 
     var start_tag = "<" + tag;
     if (props instanceof Object && !(props instanceof Array) && props.hasOwnProperty("attributes")) {
         Object.getOwnPropertyNames(props.attributes).forEach(function (key) {
-            start_tag += " " + key + "='" + props.attributes[key] + "'";
+            start_tag += " " + key + "=\"" + props.attributes[key] + "\"";
         });
     }
     start_tag += ">";
