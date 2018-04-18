@@ -85,7 +85,7 @@ function parseGPX(node, isRoot, mapData) {
     }
 
     var i;
-    var result = {attributes: {}, elements: {}};
+    var result = isRoot ? {attributes: {version: 1.1}, elements: {}} : {attributes: {}, elements: {}};
 
     // parse node attributes
     for (i = 0; i < node.attributes.length; i++) {
@@ -94,7 +94,7 @@ function parseGPX(node, isRoot, mapData) {
                 if (/(xmlns|xsi|creator)/.test(node.attributes[i].nodeName)) {
                     result.attributes[node.attributes[i].nodeName] = node.attributes[i].nodeValue;
                 }
-                else {
+                else if (node.attributes[i].nodeName !== "version") {
                     if ("extensions" in result.elements === false)
                         result.elements.extensions = {};
                     result.elements.extensions[node.attributes[i].nodeName] = node.attributes[i].nodeValue;
